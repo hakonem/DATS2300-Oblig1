@@ -76,7 +76,7 @@ public class Oblig1Test {
         }
         assertEquals(0, antallFeil, "Du har for mange feil i oppgave 1");
     }
-/*
+
     ///// Oppgave 2 /////////////////////////////////////
     @org.junit.jupiter.api.Test
     void oppgave2() {
@@ -982,5 +982,5 @@ public class Oblig1Test {
 
         return a;                        // permutasjonen returneres
     }
-*/
+
 } // class Oblig1Test

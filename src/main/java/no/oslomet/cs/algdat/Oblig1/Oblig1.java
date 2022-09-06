@@ -62,15 +62,30 @@ public class Oblig1 {
         return a; // permutasjonen returneres
     }
     
-    public static void main(String[] args) {
-        int n = 100;
-        int[] a = randPerm(n);
-        System.out.print(ombyttinger(a));
-    }
-
     ///// Oppgave 2 //////////////////////////////////////
     public static int antallUlikeSortert(int[] a) {
-        throw new UnsupportedOperationException();
+    
+        if (a.length == 0) {
+            return 0;
+        }
+        
+        int antall = 1;
+        int maks = a[0];
+        
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] < maks) {
+                throw new IllegalStateException("Tabellen er ikke sortert!");
+            } else {
+                maks = a[i];
+                antall ++;
+            }
+        }
+        return antall;
+    }
+    
+    public static void main(String[] args) {
+        int[] d = {3,3,14,17,27,29,29,43,99};;
+        System.out.print("Antall ulike tall: " + antallUlikeSortert(d));
     }
 
     ///// Oppgave 3 //////////////////////////////////////
