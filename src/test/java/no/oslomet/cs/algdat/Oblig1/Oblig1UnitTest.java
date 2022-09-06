@@ -10,11 +10,12 @@ class Oblig1UnitTest {
 
     @org.junit.jupiter.api.Test
     void maks() {
-        int[] a = {3,6,1,99,43,345,8,37,63,77};
+        int n = 50;
+        int[] a = Oblig1.randPerm(n);
         
         int maksimum = Oblig1.maks(a);
         
-        assertEquals(345, maksimum, "Implementer maks og denne testen");
+        assertEquals(50, maksimum, "Implementer maks og denne testen");
         
         //Test for alle permutasjoner for 4 tall
         {
@@ -48,7 +49,7 @@ class Oblig1UnitTest {
     @org.junit.jupiter.api.Test
     void ombyttinger() {
     
-        int[] a = {3,6,1,99,43,345,8,37,63,77};
+        int[] a = {3,6,1,99,43,77,8,37,63,345};
     
         int ombyttinger = Oblig1.ombyttinger(a);
         

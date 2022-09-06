@@ -1,12 +1,15 @@
 package no.oslomet.cs.algdat.Oblig1;
 
 import java.lang.UnsupportedOperationException;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.Random;
 
 public class Oblig1 {
     private Oblig1() {}
 
     ///// Oppgave 1 //////////////////////////////////////
+    //For en tabell med n verdier er antall sammenligninger n-1
     public static int maks(int[] a) {
         if (a.length == 0)
             throw new NoSuchElementException("Tabellen a er tom!");
@@ -20,11 +23,9 @@ public class Oblig1 {
         return a[a.length-1];
     }
     
-    //Programkode 1.1.8 d)
-    public static void bytt(int[] a, int i, int j) {
-        int temp = a[i]; a[i] = a[j]; a[j] = temp;		//bytter to verdier ved bruk av en hjelpevariabel
-    }
-    
+    //Det blir flest ombyttinger når det største tallet ligger helt forrest i tabellen.
+    //Det blir færrest ombyttinger når det største tallet ligger helt bakerst i tabellen.
+    //Formel for antall ombyttinger i gjennomsnitt: n - (ln(n) - 0.423)
     public static int ombyttinger(int[] a) {
         if (a.length == 0)
             throw new NoSuchElementException("Tabellen a er tom!");
@@ -40,6 +41,31 @@ public class Oblig1 {
     
         return ombyttinger;
     
+    }
+    
+    //Programkode 1.1.8 d)
+    public static void bytt(int[] a, int i, int j) {
+        int temp = a[i]; a[i] = a[j]; a[j] = temp;		//bytter to verdier ved bruk av en hjelpevariabel
+    }
+    
+    //Programkode 1.1.8 e)
+    public static int[] randPerm(int n) // en effektiv versjon
+    {
+        Random r = new Random(); // en randomgenerator
+        int[] a = new int[n]; // en tabell med plass til n tall
+        Arrays.setAll(a, i -> i + 1); // legger inn tallene 1, 2, . , n
+        for (int k = n - 1; k > 0; k--) // løkke som går n - 1 ganger
+        {
+            int i = r.nextInt(k+1); // en tilfeldig tall fra 0 til k
+            bytt(a,k,i); // bytter om
+        }
+        return a; // permutasjonen returneres
+    }
+    
+    public static void main(String[] args) {
+        int n = 100;
+        int[] a = randPerm(n);
+        System.out.print(ombyttinger(a));
     }
 
     ///// Oppgave 2 //////////////////////////////////////
