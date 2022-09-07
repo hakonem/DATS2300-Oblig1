@@ -83,14 +83,23 @@ public class Oblig1 {
         return antall;
     }
     
-    public static void main(String[] args) {
-        int[] d = {3,3,14,17,27,29,29,43,99};
-        System.out.print("Antall ulike tall: " + antallUlikeSortert(d));
-    }
-
     ///// Oppgave 3 //////////////////////////////////////
     public static int antallUlikeUsortert(int[] a) {
-        throw new UnsupportedOperationException();
+       // throw new UnsupportedOperationException();
+        int count = 1;
+        
+        if (a.length == 0) {
+            return 0;
+        } else {
+            for (int i = 1; i < a.length; i++) {
+                for (int j = 0; j < i; j++) {
+                    if (a[j] != a[i]) {
+                        count ++;
+                    }
+                }
+            }
+        }
+        return count;
     }
 
     ///// Oppgave 4 //////////////////////////////////////
