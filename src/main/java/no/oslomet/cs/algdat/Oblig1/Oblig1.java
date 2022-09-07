@@ -23,9 +23,9 @@ public class Oblig1 {
         return a[a.length-1];
     }
     
-    //Det blir flest ombyttinger når det største tallet ligger helt forrest i tabellen.
-    //Det blir færrest ombyttinger når det største tallet ligger helt bakerst i tabellen.
-    //Formel for antall ombyttinger i gjennomsnitt: n - (ln(n) - 0.423)
+    //Det blir flest ombyttinger (n-1) når det største tallet ligger helt forrest i tabellen.
+    //Når tabellen er sortert i stigende rekkefølge, er antall ombyttinger 0.
+    //Antall ombyttinger i gjennomsnitt er gitt ved n-(ln(n)-0.423).
     public static int ombyttinger(int[] a) {
         if (a.length == 0)
             throw new NoSuchElementException("Tabellen a er tom!");
@@ -75,7 +75,7 @@ public class Oblig1 {
         for (int i = 1; i < a.length; i++) {
             if (a[i] < maks) {
                 throw new IllegalStateException("Tabellen er ikke sortert!");
-            } else {
+            } else if (a[i] > maks){
                 maks = a[i];
                 antall ++;
             }
@@ -84,7 +84,7 @@ public class Oblig1 {
     }
     
     public static void main(String[] args) {
-        int[] d = {3,3,14,17,27,29,29,43,99};;
+        int[] d = {3,3,14,17,27,29,29,43,99};
         System.out.print("Antall ulike tall: " + antallUlikeSortert(d));
     }
 
