@@ -63,7 +63,9 @@ class Oblig1UnitTest {
 
     @org.junit.jupiter.api.Test
     void antallUlikeUsortert() {
-        assertEquals(true, false, "Implementer antallUlikeUsortert og denne testen");
+        int[] a = {3,4,3,5,7,8,7,9};
+        int antallUlike = Oblig1.antallUlikeUsortert(a);
+        assertEquals(6, antallUlike, "Implementer antallUlikeUsortert og denne testen");
     }
 
     @org.junit.jupiter.api.Test
