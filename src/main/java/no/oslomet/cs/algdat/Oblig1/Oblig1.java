@@ -6,8 +6,9 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class Oblig1 {
-    private Oblig1() {}
-
+    private Oblig1() {
+    }
+    
     ///// Oppgave 1 //////////////////////////////////////
     //For en tabell med n verdier er antall sammenligninger n-1
     public static int maks(int[] a) {
@@ -15,12 +16,11 @@ public class Oblig1 {
             throw new NoSuchElementException("Tabellen a er tom!");
     
         for (int i = 1; i < a.length; i++) {
-            if (a[i-1] > a[i]) {
-                bytt(a,i,i-1);
+            if (a[i - 1] > a[i]) {              //inversjon
+                bytt(a, i, i - 1);
             }
         }
-    
-        return a[a.length-1];
+        return a[a.length - 1];         //returnerer siste verdi i tabellen
     }
     
     //Det blir flest ombyttinger (n-1) når det største tallet ligger helt forrest i tabellen.
@@ -30,25 +30,25 @@ public class Oblig1 {
         if (a.length == 0)
             throw new NoSuchElementException("Tabellen a er tom!");
         
-        int ombyttinger = 0;
+        int ombyttinger = 0;            //initierer teller
         
         for (int i = 1; i < a.length; i++) {
-            if (a[i-1] > a[i]) {
-                bytt(a,i,i-1);
-                ombyttinger ++;
+            if (a[i - 1] > a[i]) {          //inversjon
+                bytt(a, i, i - 1);
+                ombyttinger++;              //øker telleren med 1
             }
         }
-    
         return ombyttinger;
-    
     }
     
-    //Programkode 1.1.8 d)
+    //Programkode 1.1.8 d) fra kompendiet
     public static void bytt(int[] a, int i, int j) {
-        int temp = a[i]; a[i] = a[j]; a[j] = temp;		//bytter to verdier ved bruk av en hjelpevariabel
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;        //bytter to verdier ved bruk av en hjelpevariabel
     }
     
-    //Programkode 1.1.8 e)
+    //Programkode 1.1.8 e) fra kompendiet
     public static int[] randPerm(int n) // en effektiv versjon
     {
         Random r = new Random(); // en randomgenerator
@@ -56,8 +56,8 @@ public class Oblig1 {
         Arrays.setAll(a, i -> i + 1); // legger inn tallene 1, 2, . , n
         for (int k = n - 1; k > 0; k--) // løkke som går n - 1 ganger
         {
-            int i = r.nextInt(k+1); // en tilfeldig tall fra 0 til k
-            bytt(a,k,i); // bytter om
+            int i = r.nextInt(k + 1); // en tilfeldig tall fra 0 til k
+            bytt(a, k, i); // bytter om
         }
         return a; // permutasjonen returneres
     }
@@ -66,18 +66,18 @@ public class Oblig1 {
     public static int antallUlikeSortert(int[] a) {
     
         if (a.length == 0) {
-            return 0;
+            return 0;               //håndterer tomme tabeller
         }
         
-        int antall = 1;
-        int maks = a[0];
+        int antall = 1;             //initierer teller
+        int maks = a[0];            //setter første verdi i tabellen som maksverdi
         
         for (int i = 1; i < a.length; i++) {
             if (a[i] < maks) {
-                throw new IllegalStateException("Tabellen er ikke sortert!");
-            } else if (a[i] > maks){
+                throw new IllegalStateException("Tabellen er ikke sortert!"); //exception hvis i ikke øker i verdi for hver iterasjon
+            } else if (a[i] > maks) {
                 maks = a[i];
-                antall ++;
+                antall++;       //øker telleren med 1 hver gang vi får en ny maksverdi
             }
         }
         return antall;
@@ -85,21 +85,24 @@ public class Oblig1 {
     
     ///// Oppgave 3 //////////////////////////////////////
     public static int antallUlikeUsortert(int[] a) {
-       // throw new UnsupportedOperationException();
-        int count = 1;
-        
+        // throw new UnsupportedOperationException();
+        int antall = 1;         //initierer teller for antall unike tall
+        int match = 0;          //initierer teller for antall like tall
+    
         if (a.length == 0) {
-            return 0;
+            return 0;               //håndterer tomme tabeller
         } else {
             for (int i = 1; i < a.length; i++) {
-                for (int j = 0; j < i; j++) {
-                    if (a[j] != a[i]) {
+                for (int j = 0; j < i; j++) {    //indre løkke - a[i] sammenlignes med alle tall a[0,i>
+                    if (a[i] == a[j]) {
+                        match++;                //øker telleren hver gang a[i] og a[j] har like verdier
                     }
+                } if (match == 0) {
+                    antall++;           //hvis vi ikke finner en match, skal antall unike tall økes med 1
                 }
-                count ++;
+                match = 0;          //reset match så den blir 0 til neste iterasjon!
             }
-        }
-        return count;
+        } return antall;        //returnerer antall unike tall i tabellen
     }
 
     ///// Oppgave 4 //////////////////////////////////////
