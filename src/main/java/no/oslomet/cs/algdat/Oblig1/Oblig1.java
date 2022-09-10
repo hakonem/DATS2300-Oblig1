@@ -144,8 +144,25 @@ public class Oblig1 {
 
     ///// Oppgave 7 //////////////////////////////////////
     /// 7a)
+    //Adaptert fra Programkode 1.3.11 a) fra kompendiet
     public static String flett(String s, String t) {
-        throw new UnsupportedOperationException();
+        char[] s1 = s.toCharArray();        //konverterer s til et char array
+        char[] t1 = t.toCharArray();        //konverterer t til et char array
+        
+        char[] c = new char[(s1.length + t1.length)];   //lager et tomt char array med plass til alle char i s1 + t1
+        int i = 0, j = 0, k = 0;                 //initialiserer løkkevariabler
+        
+        while (i < s1.length && j < t1.length) {
+            c[k++] = s1[i++];       //først tilordner en verdi fra s1
+            c[k++] = t1[j++];       //så tilordner en verdi fra t1
+        }
+        
+        //hvis s1 og t1 ikke er like lange, vil kun en av disse while-løkkene kjører og fyller inn de resterende plassene
+        while (i < s1.length) c[k++] = s1[i++];
+        while (j < t1.length) c[k++] = t1[j++];
+        
+        String string = new String(c);      //konverterer c tilbake til en streng
+        return string;                //returnerer den flettede strengen
     }
 
     /// 7b)
