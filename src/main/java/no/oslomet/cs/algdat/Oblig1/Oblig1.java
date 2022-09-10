@@ -25,7 +25,7 @@ public class Oblig1 {
     
     //Det blir flest ombyttinger (n-1) når det største tallet ligger helt forrest i tabellen.
     //Når tabellen er sortert i stigende rekkefølge, er antall ombyttinger 0.
-    //Antall ombyttinger i gjennomsnitt er gitt ved n-(ln(n)-0.423).
+    //Antall ombyttinger i gjennomsnitt er gitt ved n-(log(n)-0.423).
     public static int ombyttinger(int[] a) {
         if (a.length == 0)
             throw new NoSuchElementException("Tabellen a er tom!");
@@ -85,7 +85,6 @@ public class Oblig1 {
     
     ///// Oppgave 3 //////////////////////////////////////
     public static int antallUlikeUsortert(int[] a) {
-        // throw new UnsupportedOperationException();
         int antall = 1;         //initierer teller for antall unike tall
         int match = 0;          //initierer teller for antall like tall
     
@@ -106,13 +105,36 @@ public class Oblig1 {
     }
 
     ///// Oppgave 4 //////////////////////////////////////
-    public static void delsortering(int[] a) {
-        throw new UnsupportedOperationException();
+    
+    //Programkode 1.3.9 a)
+    
+    public static int parter(int[] a, int skilleverdi)  // hele tabellen
+    {
+        return parter(a, skilleverdi);
     }
-
+    
+    public static void delsortering(int[] a) {
+        //throw new UnsupportedOperationException();
+        
+        
+    }
+    
+    /*public static void main(String[] args) {
+        int[] a = {13,2,8,10,16,9,15,4,18,14,12,11,7,5,3,6,17,1,20,19};
+        parter(a, a.length-1);
+        
+    }*/
+    
+    
     ///// Oppgave 5 //////////////////////////////////////
     public static void rotasjon(char[] a) {
-        throw new UnsupportedOperationException();
+        if (a.length != 0 && a.length != 1) {
+            char sist = a[a.length-1];          //sparer på siste verdien i tabellen
+            for (int i = 0; i < a.length-1; i++) {
+                a[i+1] = a[i];
+            }
+            a[0] = sist;
+        }
     }
 
     ///// Oppgave 6 //////////////////////////////////////
