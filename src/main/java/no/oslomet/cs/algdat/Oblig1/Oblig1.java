@@ -128,12 +128,12 @@ public class Oblig1 {
     
     ///// Oppgave 5 //////////////////////////////////////
     public static void rotasjon(char[] a) {
-        if (a.length != 0 && a.length != 1) {
+        if (a.length != 0 && a.length != 1) {   //rotasjon skjer bare hvis tabellen er lengre enn 1 element
             char sist = a[a.length-1];          //sparer på siste verdien i tabellen
-            for (int i = 0; i < a.length-1; i++) {
-                a[i+1] = a[i];
+            for (int i = a.length-2; i >= 0; i--) {
+                a[i+1] = a[i];              //starter med nest siste indeks og flytter hvert element 1 posisjon til høyre
             }
-            a[0] = sist;
+            a[0] = sist;        //siste element settes tilbake i første posisjon
         }
     }
 
