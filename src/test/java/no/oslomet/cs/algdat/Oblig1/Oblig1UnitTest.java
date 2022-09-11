@@ -81,7 +81,9 @@ class Oblig1UnitTest {
 
     @org.junit.jupiter.api.Test
     void flett() {
-        assertEquals(true, false, "Implementer flett og denne testen");
+        String[] a = {"AM","L","GEDS","ORATKRR","","RTRTE","IO","TGAUU"};
+        String ut = Oblig1.flett(a);
+        assertEquals("ALGORITMER OG DATASTRUKTURER", ut, "Implementer flett og denne testen");
     }
 
     @org.junit.jupiter.api.Test

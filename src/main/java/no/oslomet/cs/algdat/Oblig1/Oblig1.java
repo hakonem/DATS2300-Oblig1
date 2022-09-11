@@ -99,31 +99,15 @@ public class Oblig1 {
                 } if (match == 0) {
                     antall++;           //hvis vi ikke finner en match, skal antall unike tall økes med 1
                 }
-                match = 0;          //reset match så den blir 0 til neste iterasjon!
+                match = 0;          //resetter match så den blir 0 til neste sjekk!
             }
         } return antall;        //returnerer antall unike tall i tabellen
     }
 
     ///// Oppgave 4 //////////////////////////////////////
-    
-    //Programkode 1.3.9 a)
-    
-    public static int parter(int[] a, int skilleverdi)  // hele tabellen
-    {
-        return parter(a, skilleverdi);
-    }
-    
     public static void delsortering(int[] a) {
         //throw new UnsupportedOperationException();
-        
-        
     }
-    
-    /*public static void main(String[] args) {
-        int[] a = {13,2,8,10,16,9,15,4,18,14,12,11,7,5,3,6,17,1,20,19};
-        parter(a, a.length-1);
-        
-    }*/
     
     
     ///// Oppgave 5 //////////////////////////////////////
@@ -167,7 +151,17 @@ public class Oblig1 {
 
     /// 7b)
     public static String flett(String... s) {
-        throw new UnsupportedOperationException();
+        StringBuilder c = new StringBuilder();      //lager tom variabel for å motta de flettede char
+        //int i = 0;
+        //char[] word = s[i].toCharArray();
+        for (int i = 0; i < s.length; i++) {        //looper gjennom ordene i arrayet s
+            char[] word = s[i].toCharArray();
+            for (int j = 0; j < s[i].length(); j++) {       //looper gjennom char i hvert ord
+                c.append(word[j]);
+                break;
+            }
+        }
+        return c.toString();
     }
 
     ///// Oppgave 8 //////////////////////////////////////
