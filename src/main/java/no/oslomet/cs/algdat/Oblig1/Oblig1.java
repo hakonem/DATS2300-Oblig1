@@ -151,10 +151,15 @@ public class Oblig1 {
 
     /// 7b)
     public static String flett(String... s) {
-        int n = s[0].length();        //finner ut lengden n av den lengste strengen i s - algoritmen må kjøres n-1 ganger
-        for (int i = 0; i < s.length; i++) {
-            if (n < s[i].length()) {
-                n = s[i].length();
+        int n = 0;
+        if (s.length == 0) {
+            n = 0;
+        } else{
+            n = s[0].length();        //finner ut lengden n av den lengste strengen i s - algoritmen må kjøres n-1 ganger
+            for (int i = 0; i < s.length; i++) {
+                if (n < s[i].length()) {
+                    n = s[i].length();
+                }
             }
         }
         
