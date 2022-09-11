@@ -151,15 +151,29 @@ public class Oblig1 {
 
     /// 7b)
     public static String flett(String... s) {
-        StringBuilder c = new StringBuilder();      //lager tom variabel for å motta de flettede char
-        //int i = 0;
-        //char[] word = s[i].toCharArray();
-        for (int i = 0; i < s.length; i++) {        //looper gjennom ordene i arrayet s
-            char[] word = s[i].toCharArray();
-            for (int j = 0; j < s[i].length(); j++) {       //looper gjennom char i hvert ord
-                c.append(word[j]);
-                break;
+        int n = s[0].length();        //finner ut lengden n av den lengste strengen i s - algoritmen må kjøres n-1 ganger
+        for (int i = 0; i < s.length; i++) {
+            if (n < s[i].length()) {
+                n = s[i].length();
             }
+        }
+        
+        StringBuilder c = new StringBuilder();      //lager tom variabel for å motta de flettede char
+        int count = 0;              //initierer antall iterasjoner gjennom s
+        
+        while (count < n) {
+            for (int i = 0; i <= s.length-1; i++) {        //looper gjennom ordene i arrayet s
+        
+                char[] word = s[i].toCharArray();       //konverterer strengen til char array
+                if (word.length != 0) {
+                    for (int j = count; j <= s[i].length()-1; j++) {       //looper gjennom char i hvert ord
+                        c.append(word[j]);          //legger til char i output-variabelen
+                        break;      //det skal bare tas en char fra hvert ord!
+                    }
+                }
+            }
+            count++;       //øker antall iterasjoner med 1
+    
         }
         return c.toString();
     }
