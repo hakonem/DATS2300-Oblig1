@@ -92,7 +92,7 @@ public class Oblig1 {
             return 0;               //håndterer tomme tabeller
         } else {
             for (int i = 1; i < a.length; i++) {
-                for (int j = 0; j < i; j++) {    //indre løkke - a[i] sammenlignes med alle tall a[0,i>
+                for (int j = 0; j < i; j++) {    //indre løkke: a[i] sammenlignes med alle tall a[0,i>
                     if (a[i] == a[j]) {
                         match++;                //øker telleren hver gang a[i] og a[j] har like verdier
                     }
@@ -106,9 +106,57 @@ public class Oblig1 {
 
     ///// Oppgave 4 //////////////////////////////////////
     public static void delsortering(int[] a) {
-        //throw new UnsupportedOperationException();
+        parter0(a, 0, a.length-1, 1);
+        kvikksortering(a, 0, a.length-1);
     }
     
+    public static int isOdd(int[] a, int i) {
+        if (a[i] % 2 == 1) { return 1;
+        } return 0;
+    }
+    
+    //Adaptert fra Programkode 1.3.9 a)
+    private static int parter0(int[] a, int v, int h, int skilleverdi)
+    {
+        while (true)                                  // stopper når v > h
+        {
+            while (v <= h && isOdd(a,v) >= skilleverdi) v++;   // h er stoppverdi for v
+            while (v <= h && isOdd(a,h) < skilleverdi) h--;  // v er stoppverdi for h
+            
+            if (v < h) bytt(a,v++,h--);                 // bytter om a[v] og a[h]
+            else  return v;  // a[v] er nåden første som ikke er mindre enn skilleverdi
+        }
+    }
+    
+    public static void kvikksortering(int[] a, int fra, int til) // a[fra:til>
+    {
+        fratilKontroll(a.length, fra, til);  // sjekker når metoden er offentlig
+        kvikksortering0(a, fra, til - 1);  // v = fra, h = til - 1
+    }
+    
+    public static void fratilKontroll(int tablengde, int fra, int til)
+    {
+        if (fra < 0)                                  // fra er negativ
+            throw new ArrayIndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+        
+        if (til > tablengde)                          // til er utenfor tabellen
+            throw new ArrayIndexOutOfBoundsException
+                    ("til(" + til + ") > tablengde(" + tablengde + ")");
+        
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+    
+    //Programkode 1.3.9 h)
+    private static void kvikksortering0(int[] a, int v, int h)  // en privat metode
+    {
+        if (v >= h) return;  // a[v:h] er tomt eller har maks ett element
+        int k = parter0(a, v, h, (v + h)/2);  // bruker midtverdien
+        kvikksortering0(a, v, k - 1);     // sorterer intervallet a[v:k-1]
+        kvikksortering0(a, k + 1, h);     // sorterer intervallet a[k+1:h]
+    }
     
     ///// Oppgave 5 //////////////////////////////////////
     public static void rotasjon(char[] a) {
@@ -151,11 +199,11 @@ public class Oblig1 {
 
     /// 7b)
     public static String flett(String... s) {
-        int n = 0;
-        if (s.length == 0) {
+        int n = 0;          //initialiserer n (lengden av den lengste strengen)
+        if (s.length == 0) {        //håndterer tomme tabeller
             n = 0;
         } else{
-            n = s[0].length();        //finner ut lengden n av den lengste strengen i s - algoritmen må kjøres n-1 ganger
+            n = s[0].length();        //finner ut lengden n av den lengste strengen i s - algoritmen må kjøres n ganger
             for (int i = 0; i < s.length; i++) {
                 if (n < s[i].length()) {
                     n = s[i].length();
@@ -166,12 +214,12 @@ public class Oblig1 {
         StringBuilder c = new StringBuilder();      //lager tom variabel for å motta de flettede char
         int count = 0;              //initierer antall iterasjoner gjennom s
         
+        //for-løkka fortsetter å løpe mens det ligger ubrukte char i tabellen
         while (count < n) {
-            for (int i = 0; i <= s.length-1; i++) {        //looper gjennom ordene i arrayet s
-        
+            for (int i = 0; i < s.length; i++) {        //looper gjennom ordene i tabellen s
                 char[] word = s[i].toCharArray();       //konverterer strengen til char array
-                if (word.length != 0) {
-                    for (int j = count; j <= s[i].length()-1; j++) {       //looper gjennom char i hvert ord
+                if (word.length != 0) {         //for alle ikke-tomme strenger:
+                    for (int j = count; j < s[i].length(); j++) {       //looper gjennom char i hvert ord
                         c.append(word[j]);          //legger til char i output-variabelen
                         break;      //det skal bare tas en char fra hvert ord!
                     }
@@ -180,7 +228,7 @@ public class Oblig1 {
             count++;       //øker antall iterasjoner med 1
     
         }
-        return c.toString();
+        return c.toString();    //konverterer de flettede char til en streng og returnerer
     }
 
     ///// Oppgave 8 //////////////////////////////////////
