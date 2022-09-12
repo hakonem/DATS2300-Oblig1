@@ -106,27 +106,37 @@ public class Oblig1 {
 
     ///// Oppgave 4 //////////////////////////////////////
     public static void delsortering(int[] a) {
-        if (a.length != 0) {
-            parter0(a, 0, a.length - 1, 1);
-            kvikksortering(a, 0, a.length - 1);
+        if (a.length > 1) {
+            oddEven(a, 0, a.length - 1, 1);
+            kvikksortering0(a, 0, a.length - 1);
         }
     }
     
-    public static int isOdd(int[] a, int i) {
-        if (a[i] % 2 == 1) { return 1;
-        } return 0;
-    }
     
+    private static int oddEven(int[] a, int v, int h, int skilleverdi)
+    {
+        while (true)                                  // stopper når v > h
+        {
+            while (v <= h && a[v] % 2 >= skilleverdi) v++;   // h er stoppverdi for v
+            while (v <= h && a[h] % 2 < skilleverdi) h--;  // v er stoppverdi for h
+    
+            if (v < h) bytt(a,v++,h--);                 // bytter om a[v] og a[h]
+            else  return v;                  // bytter om a[v] og a[h]
+           
+            // a[v] er nå den første som ikke er mindre enn skilleverdi
+        }
+        
+    }
     //Adaptert fra Programkode 1.3.9 a) fra kompendiet
     private static int parter0(int[] a, int v, int h, int skilleverdi)
     {
         while (true)                                  // stopper når v > h
         {
-            while (v <= h && isOdd(a,v) >= skilleverdi) v++;   // h er stoppverdi for v
-            while (v <= h && isOdd(a,h) < skilleverdi) h--;  // v er stoppverdi for h
+            while (v <= h && a[v] < skilleverdi) v++;   // h er stoppverdi for v
+            while (v <= h && a[h] >= skilleverdi) h--;  // v er stoppverdi for h
             
             if (v < h) bytt(a,v++,h--);                 // bytter om a[v] og a[h]
-            else  return v;  // a[v] er nåden første som ikke er mindre enn skilleverdi
+            else  return v;  // a[v] er nå den første som ikke er mindre enn skilleverdi
         }
     }
     
@@ -134,7 +144,7 @@ public class Oblig1 {
     private static void kvikksortering0(int[] a, int v, int h)  // en privat metode
     {
         if (v >= h) return;  // a[v:h] er tomt eller har maks ett element
-        int k = parter0(a, v, h, (v + h)/2);  // bruker midtverdien
+        int k = parter0(a, v, h, (a[v] + a[h])/2);  // bruker midtverdien
         kvikksortering0(a, v, k - 1);     // sorterer intervallet a[v:k-1]
         kvikksortering0(a, k + 1, h);     // sorterer intervallet a[k+1:h]
     }
