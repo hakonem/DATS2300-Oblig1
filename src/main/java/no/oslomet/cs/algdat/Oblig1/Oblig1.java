@@ -106,8 +106,10 @@ public class Oblig1 {
 
     ///// Oppgave 4 //////////////////////////////////////
     public static void delsortering(int[] a) {
-        parter0(a, 0, a.length-1, 1);
-        kvikksortering(a, 0, a.length-1);
+        if (a.length != 0) {
+            parter0(a, 0, a.length - 1, 1);
+            kvikksortering(a, 0, a.length - 1);
+        }
     }
     
     public static int isOdd(int[] a, int i) {
@@ -115,7 +117,7 @@ public class Oblig1 {
         } return 0;
     }
     
-    //Adaptert fra Programkode 1.3.9 a)
+    //Adaptert fra Programkode 1.3.9 a) fra kompendiet
     private static int parter0(int[] a, int v, int h, int skilleverdi)
     {
         while (true)                                  // stopper når v > h
@@ -128,12 +130,23 @@ public class Oblig1 {
         }
     }
     
+    //Programkode 1.3.9 h)
+    private static void kvikksortering0(int[] a, int v, int h)  // en privat metode
+    {
+        if (v >= h) return;  // a[v:h] er tomt eller har maks ett element
+        int k = parter0(a, v, h, (v + h)/2);  // bruker midtverdien
+        kvikksortering0(a, v, k - 1);     // sorterer intervallet a[v:k-1]
+        kvikksortering0(a, k + 1, h);     // sorterer intervallet a[k+1:h]
+    }
+    
+    //Programkode 1.3.9 h)
     public static void kvikksortering(int[] a, int fra, int til) // a[fra:til>
     {
         fratilKontroll(a.length, fra, til);  // sjekker når metoden er offentlig
         kvikksortering0(a, fra, til - 1);  // v = fra, h = til - 1
     }
     
+    //Programkode 1.2.3 a)
     public static void fratilKontroll(int tablengde, int fra, int til)
     {
         if (fra < 0)                                  // fra er negativ
@@ -147,15 +160,6 @@ public class Oblig1 {
         if (fra > til)                                // fra er større enn til
             throw new IllegalArgumentException
                     ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
-    }
-    
-    //Programkode 1.3.9 h)
-    private static void kvikksortering0(int[] a, int v, int h)  // en privat metode
-    {
-        if (v >= h) return;  // a[v:h] er tomt eller har maks ett element
-        int k = parter0(a, v, h, (v + h)/2);  // bruker midtverdien
-        kvikksortering0(a, v, k - 1);     // sorterer intervallet a[v:k-1]
-        kvikksortering0(a, k + 1, h);     // sorterer intervallet a[k+1:h]
     }
     
     ///// Oppgave 5 //////////////////////////////////////
