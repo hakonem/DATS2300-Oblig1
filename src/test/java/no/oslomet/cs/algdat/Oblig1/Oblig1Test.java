@@ -369,7 +369,8 @@ public class Oblig1Test {
         assertEquals(0, antallFeil, "Du har for mange feil i oppgave 5");
     }
 
-    ///// Oppgave 6 //////////////////////////////////////
+    /*
+    //// Oppgave 6 //////////////////////////////////////
     @org.junit.jupiter.api.Test
     void oppgave6() {
         int antallFeil = 0;
@@ -481,6 +482,7 @@ public class Oblig1Test {
 
         assertEquals(0, antallFeil, "Du har for mange feil i oppgave 6");
     }
+    */
 
     ///// Oppgave 7 //////////////////////////////////////
     @org.junit.jupiter.api.Test
@@ -608,6 +610,7 @@ public class Oblig1Test {
         assertEquals(0, antallFeil, "Du har for mange feil i oppgave 7");
     }
 
+    /*
     ///// Oppgave 8 //////////////////////////////////////
     @org.junit.jupiter.api.Test
     void oppgave8() {
@@ -935,6 +938,8 @@ public class Oblig1Test {
         }
         assertEquals(0, antallFeil, "Du har for mange feil i oppgave 10");
     }
+    */
+    
 
     ///// Hjelpemetoder /////////////////////////////
 
