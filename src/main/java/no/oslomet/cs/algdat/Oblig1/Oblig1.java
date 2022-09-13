@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
 public class Oblig1 {
     private Oblig1() {
     }
@@ -118,8 +120,8 @@ public class Oblig1 {
     {
         while (true)                                  // stopper når v > h
         {
-            while (v <= h && a[v] % 2 >= skilleverdi) v++;   // h er stoppverdi for v
-            while (v <= h && a[h] % 2 < skilleverdi) h--;  // v er stoppverdi for h
+            while (v <= h && Math.abs(a[v] % 2) >= skilleverdi) v++;   // h er stoppverdi for v
+            while (v <= h && Math.abs(a[h] % 2) < skilleverdi) h--;  // v er stoppverdi for h
     
             if (v < h) bytt(a,v++,h--);                 // bytter om a[v] og a[h]
             else return v;                  // a[v] er nå det første partall
