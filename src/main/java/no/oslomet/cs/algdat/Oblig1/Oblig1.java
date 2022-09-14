@@ -43,27 +43,6 @@ public class Oblig1 {
         return ombyttinger;
     }
     
-    //Programkode 1.1.8 d) fra kompendiet
-    public static void bytt(int[] a, int i, int j) {
-        int temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;        //bytter to verdier ved bruk av en hjelpevariabel
-    }
-    
-    //Programkode 1.1.8 e) fra kompendiet
-    public static int[] randPerm(int n) // en effektiv versjon
-    {
-        Random r = new Random(); // en randomgenerator
-        int[] a = new int[n]; // en tabell med plass til n tall
-        Arrays.setAll(a, i -> i + 1); // legger inn tallene 1, 2, . , n
-        for (int k = n - 1; k > 0; k--) // løkke som går n - 1 ganger
-        {
-            int i = r.nextInt(k + 1); // en tilfeldig tall fra 0 til k
-            bytt(a, k, i); // bytter om
-        }
-        return a; // permutasjonen returneres
-    }
-    
     ///// Oppgave 2 //////////////////////////////////////
     public static int antallUlikeSortert(int[] a) {
     
@@ -93,8 +72,8 @@ public class Oblig1 {
         if (a.length == 0) {
             return 0;               //håndterer tomme tabeller
         } else {
-            for (int i = 1; i < a.length; i++) {
-                for (int j = 0; j < i; j++) {    //indre løkke: a[i] sammenlignes med alle tall a[0,i>
+            for (int i = 1; i < a.length; i++) {  //løkka begynner på a[1] siden a[0] allerede teller som et unikt tall
+                for (int j = 0; j < i; j++) {    //indre løkke: a[i] sammenlignes med alle tall i intervallet a[0,i>
                     if (a[i] == a[j]) {
                         match++;                //øker telleren hver gang a[i] og a[j] har like verdier
                     }
@@ -109,13 +88,17 @@ public class Oblig1 {
     ///// Oppgave 4 //////////////////////////////////////
     public static void delsortering(int[] a) {
         if (a.length > 1) {
-            //oddEven(a, 0, a.length - 1, 1); //sorterer tabellen slik at oddetall kommer først, så partall
+            //sorterer først tallene i intervallet [0,v-1] dvs. oddetallene
             kvikksortering0(a, 0, oddEven(a,0,a.length-1,1)-1);
+            //sorterer så tallene i intervallet [v,a.length-1] dvs. partallene
             kvikksortering0(a, oddEven(a,0,a.length-1,1), a.length-1);
         }
     }
     
-    
+    /*
+    oddEven er en adaptert versjon av Programkode 1.3.9 a) fra kompendiet. Metoden sorterer tabellen slik at oddetall
+    kommer først, så partall.
+    */
     private static int oddEven(int[] a, int v, int h, int skilleverdi)
     {
         while (true)                                  // stopper når v > h
@@ -128,63 +111,10 @@ public class Oblig1 {
         }
     }
     
-    //Adaptert fra Programkode 1.3.9 a) fra kompendiet
-    private static int sParter0(int[] a, int v, int h, int indeks)
-    {
-        bytt(a, indeks, h);           // skilleverdi a[indeks] flyttes bakerst
-        int pos = parter0(a, v, h - 1, a[h]);  // partisjonerer a[v:h - 1]
-        bytt(a, pos, h);              // bytter for å få skilleverdien på rett plass
-        return pos;                   // returnerer posisjonen til skilleverdien
-    }
-    
-    private static int parter0(int[] a, int v, int h, int skilleverdi)
-    {
-        while (true)                                  // stopper når v > h
-        {
-            while (v <= h && a[v] < skilleverdi) v++;   // h er stoppverdi for v
-            while (v <= h && a[h] >= skilleverdi) h--;  // v er stoppverdi for h
-            
-            if (v < h) bytt(a,v++,h--);                 // bytter om a[v] og a[h]
-            else  return v;  // a[v] er nåden første som ikke er mindre enn skilleverdi
-        }
-    }
-    
-    //Programkode 1.3.9 h)
-    private static void kvikksortering0(int[] a, int v, int h)  // en privat metode
-    {
-        if (v >= h) return;  // a[v:h] er tomt eller har maks ett element
-        int k = sParter0(a, v, h,(v+h)/2);  // bruker midtverdien
-        
-        kvikksortering0(a, v, k-1);     // sorterer intervallet a[v:k-1]
-        kvikksortering0(a, k+1, h);     // sorterer intervallet a[k+1:h]
-    }
-    
-    //Programkode 1.3.9 h)
-    public static void kvikksortering(int[] a, int fra, int til) // a[fra:til>
-    {
-        fratilKontroll(a.length, fra, til);  // sjekker når metoden er offentlig
-        kvikksortering0(a, fra, til - 1);  // v = fra, h = til - 1
-    }
-    
-    //Programkode 1.2.3 a)
-    public static void fratilKontroll(int tablengde, int fra, int til)
-    {
-        if (fra < 0)                                  // fra er negativ
-            throw new ArrayIndexOutOfBoundsException
-                    ("fra(" + fra + ") er negativ!");
-        
-        if (til > tablengde)                          // til er utenfor tabellen
-            throw new ArrayIndexOutOfBoundsException
-                    ("til(" + til + ") > tablengde(" + tablengde + ")");
-        
-        if (fra > til)                                // fra er større enn til
-            throw new IllegalArgumentException
-                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
-    }
     
     ///// Oppgave 5 //////////////////////////////////////
     public static void rotasjon(char[] a) {
-        if (a.length != 0 && a.length != 1) {   //rotasjon skjer bare hvis tabellen er lengre enn 1 element
+        if (a.length >= 1) {   //rotasjon skjer bare hvis tabellen er lengre enn 1 element
             char sist = a[a.length-1];          //sparer på siste verdien i tabellen
             for (int i = a.length-2; i >= 0; i--) {
                 a[i+1] = a[i];              //starter med nest siste indeks og flytter hvert element 1 posisjon til høyre
@@ -200,7 +130,7 @@ public class Oblig1 {
 
     ///// Oppgave 7 //////////////////////////////////////
     /// 7a)
-    //Adaptert fra Programkode 1.3.11 a) fra kompendiet
+    //flett er en adaptert versjon av Programkode 1.3.11 a) fra kompendiet
     public static String flett(String s, String t) {
         char[] s1 = s.toCharArray();        //konverterer s til et char array
         char[] t1 = t.toCharArray();        //konverterer t til et char array
@@ -223,11 +153,11 @@ public class Oblig1 {
 
     /// 7b)
     public static String flett(String... s) {
-        int n = 0;          //initialiserer n (lengden av den lengste strengen)
+        int n = 0;          //initialiserer n (lengden til den lengste strengen)
         if (s.length == 0) {        //håndterer tomme tabeller
             n = 0;
         } else{
-            n = s[0].length();        //finner ut lengden n av den lengste strengen i s - algoritmen må kjøres n ganger
+            n = s[0].length();        //finner ut lengden n til den lengste strengen i s - for-løkka må kjøres n ganger
             for (int i = 0; i < s.length; i++) {
                 if (n < s[i].length()) {
                     n = s[i].length();
@@ -273,5 +203,85 @@ public class Oblig1 {
     public static boolean inneholdt(String a, String b) {
         throw new UnsupportedOperationException();
     }
-
+    
+    ///// Hjelpemetoder fra kompendiet ////////////////////
+    
+    //Programkode 1.1.8 d) fra kompendiet
+    public static void bytt(int[] a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;        //bytter to verdier ved bruk av en hjelpevariabel
+    }
+    
+    //Programkode 1.1.8 e) fra kompendiet
+    public static int[] randPerm(int n) // en effektiv versjon
+    {
+        Random r = new Random(); // en randomgenerator
+        int[] a = new int[n]; // en tabell med plass til n tall
+        Arrays.setAll(a, i -> i + 1); // legger inn tallene 1, 2, . , n
+        for (int k = n - 1; k > 0; k--) // løkke som går n - 1 ganger
+        {
+            int i = r.nextInt(k + 1); // en tilfeldig tall fra 0 til k
+            bytt(a, k, i); // bytter om
+        }
+        return a; // permutasjonen returneres
+    }
+    
+    
+    //Programkode 1.3.9 a) fra kompendiet
+    private static int parter0(int[] a, int v, int h, int skilleverdi)
+    {
+        while (true)                                  // stopper når v > h
+        {
+            while (v <= h && a[v] < skilleverdi) v++;   // h er stoppverdi for v
+            while (v <= h && a[h] >= skilleverdi) h--;  // v er stoppverdi for h
+            
+            if (v < h) bytt(a,v++,h--);                 // bytter om a[v] og a[h]
+            else  return v;  // a[v] er nåden første som ikke er mindre enn skilleverdi
+        }
+    }
+    
+    //Programkode 1.3.9 f) fra kompendiet
+    private static int sParter0(int[] a, int v, int h, int indeks)
+    {
+        bytt(a, indeks, h);           // skilleverdi a[indeks] flyttes bakerst
+        int pos = parter0(a, v, h - 1, a[h]);  // partisjonerer a[v:h - 1]
+        bytt(a, pos, h);              // bytter for å få skilleverdien på rett plass
+        return pos;                   // returnerer posisjonen til skilleverdien
+    }
+    
+    //Programkode 1.3.9 h) fra kompendiet
+    private static void kvikksortering0(int[] a, int v, int h)  // en privat metode
+    {
+        if (v >= h) return;  // a[v:h] er tomt eller har maks ett element
+        int k = sParter0(a, v, h,(v+h)/2);  // bruker midtverdien
+        
+        kvikksortering0(a, v, k-1);     // sorterer intervallet a[v:k-1]
+        kvikksortering0(a, k+1, h);     // sorterer intervallet a[k+1:h]
+    }
+    
+    //Programkode 1.3.9 h) fra kompendiet
+    public static void kvikksortering(int[] a, int fra, int til) // a[fra:til>
+    {
+        fratilKontroll(a.length, fra, til);  // sjekker når metoden er offentlig
+        kvikksortering0(a, fra, til - 1);  // v = fra, h = til - 1
+    }
+    
+    //Programkode 1.2.3 a) fra kompendiet
+    public static void fratilKontroll(int tablengde, int fra, int til)
+    {
+        if (fra < 0)                                  // fra er negativ
+            throw new ArrayIndexOutOfBoundsException
+                    ("fra(" + fra + ") er negativ!");
+        
+        if (til > tablengde)                          // til er utenfor tabellen
+            throw new ArrayIndexOutOfBoundsException
+                    ("til(" + til + ") > tablengde(" + tablengde + ")");
+        
+        if (fra > til)                                // fra er større enn til
+            throw new IllegalArgumentException
+                    ("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+    }
+    
+    
 }  // Oblig1
